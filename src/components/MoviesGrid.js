@@ -10,8 +10,6 @@ export default function MoviesGrid(){
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        const m = ["a", "b" , "c", "d"];	
-
         fetch("movies.JSON")
         .then(response => response.json())
         .then(data => setMovies(data))
