@@ -1,3 +1,5 @@
+# This application was made using resources from https://www.udemy.com/course/master-react 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
