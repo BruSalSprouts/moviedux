@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState } from 'react';
 import '../styles.css';
 import MovieCard from './MovieCard';
 
-export default function MoviesGrid(){
+export default function MoviesGrid({ movies, watchlist, toggleWatchlist }) {
 
     // State syntax: const [stateName, setStateName] = useState(initialStateValue);
-
-    // State to store the movies
-    const [movies, setMovies] = useState([]);
 
     // State to store the search term
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,12 +14,6 @@ export default function MoviesGrid(){
 
     // State to store the rating
     const [rating, setRating] = useState("All");
-
-    useEffect(() => {
-        fetch("movies.JSON")
-        .then(response => response.json())
-        .then(data => setMovies(data))
-    }, []);
 
     // The handleSearchChange function is created to handle the search input change
     const handleSearchChange = (e) => {
@@ -64,12 +55,13 @@ export default function MoviesGrid(){
     }
 
     // Takes the movies array and filters it based on the search term
-    const filteredMovies = movies.filter((movie) => 
+    const filteredMovies = movies.filter(
+      (movie) => 
         matchesGenre(movie, genre) && 
         matchesRating(movie, rating) &&
         matchesSearchTerm(movie, searchTerm)
     );
-
+    console.log("MoviesGrid component rendered");
     return (
       <div>
         <input 
@@ -127,7 +119,12 @@ export default function MoviesGrid(){
 
             filteredMovies.map((movie) => (
               // The MovieCard Component is used to display the movie details
-              <MovieCard movie={movie} key={movie.id}></MovieCard>
+              <MovieCard 
+                movie={movie} 
+                key={movie.id} 
+                toggleWatchlist={toggleWatchlist}
+                isWatchlisted={watchlist.includes(movie.id)} // Passes a boolean value to the MovieCard component to determine if the movie is in the watchlist
+              ></MovieCard>
             ))
           }
         </div>
